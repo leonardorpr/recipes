@@ -1,4 +1,4 @@
-package com.example.recipes;
+package com.example.recipes.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.example.recipes.R;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
