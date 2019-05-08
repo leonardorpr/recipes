@@ -7,31 +7,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.recipes.Activities.CategoryActivity;
 import com.example.recipes.Activities.ReceitaActivity;
-import com.example.recipes.Models.Category;
 import com.example.recipes.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class CategoriesFragment extends Fragment {
-    Unbinder unbinder;
+public class RecipesFragment extends Fragment {
+
+    private Unbinder unbinder;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_receitas, container, false);
+
         unbinder = ButterKnife.bind(this, view);
+
         return view;
     }
 
-    public static CategoriesFragment newInstance() {
-        return new CategoriesFragment();
+    public static RecipesFragment newInstance() {
+        return new RecipesFragment();
     }
 
-    @OnClick(R.id.btn_add_category)
+    @OnClick(R.id.btn_recipes_add)
     public void onViewClicked() {
-            startActivity(new Intent(getActivity(), CategoryActivity.class));
+        startActivity(new Intent(getActivity(), ReceitaActivity.class));
     }
 }
