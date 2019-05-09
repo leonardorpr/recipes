@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Delicinha</string>
     <string name="title_home">Home</string>
     <string name="title_receitas">Receitas</string>
     <string name="title_category">Categorias</string>
