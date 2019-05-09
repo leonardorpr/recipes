@@ -17,8 +17,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private BottomNavigationView navigationView;
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        item.setChecked(true);
             switch (item.getItemId()) {
                 case R.id.navigation_home:{
                     Fragment homefragment = homeFragment.newInstance();
