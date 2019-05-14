@@ -1,5 +1,7 @@
 package com.example.recipes.Models;
 
+import android.graphics.Bitmap;
+
 public class Recipe {
     private Long id;
     private Category category;
@@ -9,6 +11,10 @@ public class Recipe {
     private int yield;
     private String ingredients;
     private String methodOfPreparation;
+    private Boolean isFavorite;
+    private Bitmap imageBitmap;
+    private String imageName;
+    private String imageExtension;
 
     public Long getId () {
         return id;
@@ -72,5 +78,37 @@ public class Recipe {
 
     public void setMethodOfPreparation(String methodOfPreparation) {
         this.methodOfPreparation = methodOfPreparation;
+    }
+
+    public String getImageExtension () {
+        return this.imageExtension;
+    }
+
+    public void setImageExtension (String imageExtension) {
+        this.imageExtension = imageExtension;
+    }
+
+    public String getImageName () {
+        return imageName;
+    }
+
+    public void setImageName (String imageName) {
+        this.imageName = imageName;
+    }
+
+    public Bitmap getImageBitmap () {
+        return this.imageBitmap;
+    }
+
+    public void setImageBitmap (Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
+    }
+
+    public Boolean getIsFavorite() {
+        return this.isFavorite;
+    }
+
+    public void setIsFavorite(Boolean favorite) {
+        this.isFavorite = favorite;
     }
 }

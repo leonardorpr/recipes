@@ -18,20 +18,22 @@ public class RecipeDAO {
     public static String ID = "id";
     public static String CATEGORY_ID = "category_id";
     public static String NAME = "name";
-    public static String TIME= "time";
+    public static String TIME = "time";
     public static String YIELD = "yield";
     public static String INGREDIENTS = "ingredients";
     public static String METHOD_OF_PREPARATION = "method_of_preparation";
+    public static String IS_FAVORITE = "is_favorite";
+    public static String IMAGE_NAME = "image_name";
 
     public RecipeDAO (Context context) {
         database = new DBHelper(context);
     }
 
-    public ArrayList<Recipe> getRecipeByCategoryId(Long id) {
+    public ArrayList<Recipe> listFavorites () {
         db = database.getReadableDatabase();
 
-        String where = CATEGORY_ID + "=" + id;
-        Cursor cursor = db.query(TABLE, new String[] { ID, CATEGORY_ID, NAME, TIME, YIELD, INGREDIENTS, METHOD_OF_PREPARATION }, where, null,null,null,null,null);
+        String where = IS_FAVORITE + "=" + 1;
+        Cursor cursor = db.query(TABLE, new String[] { ID, CATEGORY_ID, NAME, TIME, YIELD, INGREDIENTS, METHOD_OF_PREPARATION, IS_FAVORITE, IMAGE_NAME }, where, null,null,null,null,null);
         ArrayList<Recipe> result = new ArrayList<>();
 
         if (cursor.moveToFirst()){
@@ -44,6 +46,38 @@ public class RecipeDAO {
                 recipe.setYield(cursor.getInt(cursor.getColumnIndex(YIELD)));
                 recipe.setIngredients(cursor.getString(cursor.getColumnIndex(INGREDIENTS)));
                 recipe.setMethodOfPreparation(cursor.getString(cursor.getColumnIndex(METHOD_OF_PREPARATION)));
+                recipe.setIsFavorite(cursor.getInt(cursor.getColumnIndex(IS_FAVORITE)) == 1);
+                recipe.setImageName(cursor.getString(cursor.getColumnIndex(IMAGE_NAME)));
+
+                result.add(recipe);
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        cursor.close();
+
+        return result;
+    }
+
+    public ArrayList<Recipe> getRecipeByCategoryId(Long id) {
+        db = database.getReadableDatabase();
+
+        String where = CATEGORY_ID + "=" + id;
+        Cursor cursor = db.query(TABLE, new String[] { ID, CATEGORY_ID, NAME, TIME, YIELD, INGREDIENTS, METHOD_OF_PREPARATION, IS_FAVORITE, IMAGE_NAME }, where, null,null,null,null,null);
+        ArrayList<Recipe> result = new ArrayList<>();
+
+        if (cursor.moveToFirst()){
+            do {
+                Recipe recipe = new Recipe();
+                recipe.setId(cursor.getLong(cursor.getColumnIndex(ID)));
+                recipe.setName(cursor.getString(cursor.getColumnIndex(NAME)));
+                recipe.setCategoryId(cursor.getLong(cursor.getColumnIndex(CATEGORY_ID)));
+                recipe.setTime(cursor.getInt(cursor.getColumnIndex(TIME)));
+                recipe.setYield(cursor.getInt(cursor.getColumnIndex(YIELD)));
+                recipe.setIngredients(cursor.getString(cursor.getColumnIndex(INGREDIENTS)));
+                recipe.setMethodOfPreparation(cursor.getString(cursor.getColumnIndex(METHOD_OF_PREPARATION)));
+                recipe.setIsFavorite(cursor.getInt(cursor.getColumnIndex(IS_FAVORITE)) == 1);
+                recipe.setImageName(cursor.getString(cursor.getColumnIndex(IMAGE_NAME)));
 
                 result.add(recipe);
             } while (cursor.moveToNext());
@@ -58,7 +92,7 @@ public class RecipeDAO {
     public ArrayList<Recipe> list () {
         db = database.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE, new String[] { ID, CATEGORY_ID, NAME, TIME, YIELD, INGREDIENTS, METHOD_OF_PREPARATION }, null,null,null,null,null);
+        Cursor cursor = db.query(TABLE, new String[] { ID, CATEGORY_ID, NAME, TIME, YIELD, INGREDIENTS, METHOD_OF_PREPARATION, IS_FAVORITE, IMAGE_NAME }, null,null,null,null,null);
         ArrayList<Recipe> result = new ArrayList<>();
 
         if (cursor.moveToFirst()){
@@ -71,6 +105,8 @@ public class RecipeDAO {
                 recipe.setYield(cursor.getInt(cursor.getColumnIndex(YIELD)));
                 recipe.setIngredients(cursor.getString(cursor.getColumnIndex(INGREDIENTS)));
                 recipe.setMethodOfPreparation(cursor.getString(cursor.getColumnIndex(METHOD_OF_PREPARATION)));
+                recipe.setIsFavorite(cursor.getInt(cursor.getColumnIndex(IS_FAVORITE)) == 1);
+                recipe.setImageName(cursor.getString(cursor.getColumnIndex(IMAGE_NAME)));
 
                 result.add(recipe);
             } while (cursor.moveToNext());
@@ -93,12 +129,14 @@ public class RecipeDAO {
         values.put(YIELD, recipe.getYield());
         values.put(INGREDIENTS, recipe.getIngredients());
         values.put(METHOD_OF_PREPARATION, recipe.getMethodOfPreparation());
+        values.put(IS_FAVORITE, recipe.getIsFavorite());
+        values.put(IMAGE_NAME, recipe.getImageName());
 
-        long resultad = db.insert(TABLE, null, values);
+        long result = db.insert(TABLE, null, values);
 
         db.close();
 
-        return resultad;
+        return result;
     }
 
     public int update (Recipe recipe) {
@@ -114,6 +152,8 @@ public class RecipeDAO {
         values.put(YIELD, recipe.getYield());
         values.put(INGREDIENTS, recipe.getIngredients());
         values.put(METHOD_OF_PREPARATION, recipe.getMethodOfPreparation());
+        values.put(IS_FAVORITE, recipe.getIsFavorite());
+        values.put(IMAGE_NAME, recipe.getImageName());
 
         int response = db.update(TABLE, values, where,null);
 
@@ -136,7 +176,7 @@ public class RecipeDAO {
     public Recipe get (Long id) {
         String where = ID + "=" + id;
         db = database.getReadableDatabase();
-        Cursor cursor = db.query(TABLE, new String[] { ID, CATEGORY_ID, NAME, TIME, YIELD, INGREDIENTS, METHOD_OF_PREPARATION }, where, null,null,null,null,null);
+        Cursor cursor = db.query(TABLE, new String[] { ID, CATEGORY_ID, NAME, TIME, YIELD, INGREDIENTS, METHOD_OF_PREPARATION, IS_FAVORITE, IMAGE_NAME }, where, null,null,null,null,null);
 
         if (cursor.moveToFirst()) {
             Recipe recipe = new Recipe();
@@ -147,6 +187,8 @@ public class RecipeDAO {
             recipe.setYield(cursor.getInt(cursor.getColumnIndex(YIELD)));
             recipe.setIngredients(cursor.getString(cursor.getColumnIndex(INGREDIENTS)));
             recipe.setMethodOfPreparation(cursor.getString(cursor.getColumnIndex(METHOD_OF_PREPARATION)));
+            recipe.setIsFavorite(cursor.getInt(cursor.getColumnIndex(IS_FAVORITE)) == 1);
+            recipe.setImageName(cursor.getString(cursor.getColumnIndex(IMAGE_NAME)));
 
             db.close();
 
