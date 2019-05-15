@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import com.example.recipes.Fragments.CategoriesFragment;
+import com.example.recipes.Fragments.FavoriteFragment;
 import com.example.recipes.Fragments.RecipesFragment;
 import com.example.recipes.Fragments.homeFragment;
 import com.example.recipes.R;
@@ -37,6 +38,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.navigation_category:{
                     Fragment categoryFragment = CategoriesFragment.newInstance();
                     openFragment(categoryFragment);
+                    break;
+                }
+
+                case R.id.navigation_favorite:{
+                    Fragment favoriteFragment = FavoriteFragment.newInstance();
+                    openFragment(favoriteFragment);
                     break;
                 }
             }
