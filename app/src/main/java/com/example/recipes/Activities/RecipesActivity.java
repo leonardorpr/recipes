@@ -104,7 +104,7 @@ public class RecipesActivity extends AppCompatActivity {
         String ingredientsRecipe = ingredients.getText().toString();
         String temp = tempPrepare.getText().toString();
         int tempPrepareRecipes = Integer.parseInt(temp);
-        String prepareModeRecipes = tempPrepare.getText().toString();
+        String prepareModeRecipes = prepareMode.getText().toString();
         String yild = yield.getText().toString();
         int yield = Integer.parseInt(yild);
         Category category = selectedCategory;
