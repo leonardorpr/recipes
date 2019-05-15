@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.recipes.Activities.CategoryActivity;
 import com.example.recipes.Activities.RecipeIdActivity;
 import com.example.recipes.Activities.RecipesActivity;
 import com.example.recipes.DAO.RecipeDAO;

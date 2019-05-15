@@ -66,7 +66,7 @@ public class CategoryAdapterItens extends RecyclerView.Adapter<CategoryViewHolde
                     categoryDAO.remove(categories.get(i).getId());
                     attItens(categoryDAO.list());
                 }else{
-                    Toast.makeText(context, "Você não pode apagar categorias que tenham receitas!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Não é possivel apagar categorias que tenham receitas!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
