@@ -44,9 +44,7 @@ public class Recipe {
         return yield;
     }
 
-    public void setYield (int yield) {
-        this.yield = yield;
-    }
+    public void setYield (int yield) { this.yield = yield; }
 
     public String getIngredients () {
         return ingredients;

@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
@@ -19,7 +18,7 @@
 
     <!-- inactive tab icon style -->
     <style name="TextAppearance.BottomNavigationView.Inactive">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">0sp</item>
     </style>
 
     <!-- active tab icon style -->
