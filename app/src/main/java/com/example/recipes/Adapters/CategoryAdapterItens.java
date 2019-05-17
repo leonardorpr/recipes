@@ -1,5 +1,6 @@
 package com.example.recipes.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -46,8 +47,6 @@ public class CategoryAdapterItens extends RecyclerView.Adapter<CategoryViewHolde
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolderCard categoryViewHolderCard, final int i) {
         categoryViewHolderCard.name.setText(this.categories.get(i).getName());
-        categoryViewHolderCard.description.setText(this.categories.get(i).getDescription());
-
         final ArrayList<Recipe> recipes = recipeDAO.getRecipeByCategoryId(this.categories.get(i).getId());
 
         categoryViewHolderCard.card.setOnClickListener(new View.OnClickListener() {
@@ -66,8 +65,7 @@ public class CategoryAdapterItens extends RecyclerView.Adapter<CategoryViewHolde
                     categoryDAO.remove(categories.get(i).getId());
                     attItens(categoryDAO.list());
                 }else{
-                    Toast.makeText(context, "Não é possivel apagar categorias que tenham receitas!", Toast.LENGTH_SHORT).show();
-                    return;
+                    new AlertDialog.Builder(context).setTitle("Opss, melhor não..").setMessage("Esta categoria possui receitas!").show();
                 }
 
             }

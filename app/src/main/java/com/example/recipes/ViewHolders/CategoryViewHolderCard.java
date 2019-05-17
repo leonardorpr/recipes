@@ -20,7 +20,6 @@ public class CategoryViewHolderCard extends RecyclerView.ViewHolder {
 
         card = itemView.findViewById(R.id.category_item_card);
         name = itemView.findViewById(R.id.recipe_name);
-        description = itemView.findViewById(R.id.category_description);
         btnDelete = itemView.findViewById(R.id.btn_delete_category);
         btnEdit = itemView.findViewById(R.id.btn_edit_category);
     }

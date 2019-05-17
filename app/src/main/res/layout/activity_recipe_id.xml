@@ -27,7 +27,7 @@
         <ImageView
             android:id="@+id/img_recipe"
             android:layout_width="411dp"
-            android:layout_height="244dp"
+            android:layout_height="245dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="196dp"
             android:scaleType="centerCrop"
@@ -36,8 +36,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            />
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <TextView
@@ -63,9 +62,9 @@
 
             <TextView
                 android:id="@+id/title_recipes_id"
-                android:layout_width="330dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_width="290dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="3dp"
                 android:lineSpacingExtra="8sp"
                 android:text="Titulo Receita"
                 android:textAllCaps="true"
@@ -73,6 +72,22 @@
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_favorite"
+                android:layout_width="35dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/ic_favorite_default"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.176"
+                app:layout_constraintStart_toEndOf="@+id/title_recipes_id"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </android.support.constraint.ConstraintLayout>
 
         <TextView
@@ -142,12 +157,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="28dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
             android:text="Porções"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView2" />
+            app:layout_constraintHorizontal_bias="0.88"
+            app:layout_constraintStart_toEndOf="@+id/tempPrepare_recipes_id" />
 
         <ImageButton
             android:id="@+id/btn_back"

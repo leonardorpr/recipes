@@ -1,11 +1,8 @@
 package com.example.recipes.Activities;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +25,8 @@ public class RecipeIdActivity extends AppCompatActivity {
     TextView prepareModeRecipes;
     @BindView(R.id.tempPrepare_recipes_id)
     TextView tempPrepareRecipes;
+    @BindView(R.id.btn_favorite)
+    ImageButton btnFavorite;
     ImageView imageRecipe;
     private long id;
     private Recipe recipe;
@@ -53,8 +52,13 @@ public class RecipeIdActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.btn_back)
-    public void onViewClicked() {
+    public void onBackClicked() {
         super.onBackPressed();
+    }
+
+    @OnClick(R.id.btn_favorite)
+    public void onFavoriteClicked() {
+        this.btnFavorite.setBackgroundResource(R.drawable.ic_favorite_true);
     }
 }
 
