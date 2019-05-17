@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollView3"
     android:layout_width="match_parent"
 
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     app:layout_constraintVertical_bias="1.0">
 
@@ -44,7 +43,7 @@
             android:layout_width="40dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/ic_go_back_left_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,9 +56,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:maxLength="17"
             android:hint="Nome da Receita"
             android:inputType="textPersonName"
+            android:maxLength="17"
             app:layout_constraintBottom_toTopOf="@+id/ingredients"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
@@ -137,5 +136,18 @@
             app:layout_constraintBottom_toTopOf="@+id/tempPrepare"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/open_galery"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/ic_add_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

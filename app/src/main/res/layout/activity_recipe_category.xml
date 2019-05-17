@@ -8,12 +8,13 @@
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="40dp"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/ic_go_back_left_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,14 +32,17 @@
 
     <TextView
         android:id="@+id/descripiton_recipes_category"
-        android:layout_width="242dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
         android:text="Descrição"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/recycleview_recipes_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_recipes_category" />
+        app:layout_constraintTop_toBottomOf="@+id/title_recipes_category"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <android.support.v7.widget.RecyclerView

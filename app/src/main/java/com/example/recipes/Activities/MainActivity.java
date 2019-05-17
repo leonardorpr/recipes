@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         openFragment(homefragment);
     }
 
-    private void openFragment(Fragment fragment) {
+    public void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);

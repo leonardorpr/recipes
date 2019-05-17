@@ -3,32 +3,23 @@ package com.example.recipes.Activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.recipes.Adapters.CategoryAdapterItens;
 import com.example.recipes.DAO.CategoryDAO;
 import com.example.recipes.Models.Category;
 import com.example.recipes.R;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+
 
 public class CategoryActivity extends AppCompatActivity {
-    Unbinder unbinder;
     @BindView(R.id.title_category) TextView title_category;
     @BindView(R.id.name_category) EditText nameCategory;
     @BindView(R.id.description_category) EditText descriptionCategory;
-    public CategoryAdapterItens categoryAdapterItens;
     private long id = -1;
     private CategoryDAO categoryDAO;
-    private ArrayList<Category> categories;
     private Category category;
 
     @Override
@@ -82,11 +73,14 @@ public class CategoryActivity extends AppCompatActivity {
            Toast.makeText(this,"Categoria Editada com Sucesso", Toast.LENGTH_SHORT).show();
            category.setId(this.id);
            categoryDAO.update(category);
+       }else {
+           Toast.makeText(this, "Categoria já EXISTE!", Toast.LENGTH_SHORT).show();
+           return;
        }
        super.onBackPressed();
     }
 
-    private Category GetName(String name) {
+    public Category GetName(String name) {
         CategoryDAO categoryDAO = new CategoryDAO(getBaseContext());
         return categoryDAO.getByName(name);
     }

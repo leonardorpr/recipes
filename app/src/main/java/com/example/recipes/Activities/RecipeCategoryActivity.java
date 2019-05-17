@@ -26,8 +26,6 @@ public class RecipeCategoryActivity extends AppCompatActivity {
     @BindView(R.id.descripiton_recipes_category) TextView description;
     private long id;
     private CategoryDAO categoryDAO;
-    private RecipeDAO recipeDAO;
-    private ArrayList<Recipe> recipes;
     private Category category;
     private RecipesAdapterItens recipesAdapterItens;
 
@@ -53,14 +51,12 @@ public class RecipeCategoryActivity extends AppCompatActivity {
     public void RecicleViewRecipes() {
         RecyclerView recycleViewrecipes = findViewById(R.id.recycleview_recipes_category);
         LinearLayoutManager linearLayoutManagerRecipes = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
         recycleViewrecipes.setLayoutManager(linearLayoutManagerRecipes);
         recycleViewrecipes.setAdapter(recipesAdapterItens);
     }
 
     public void onResume() {
         super.onResume();
-
         getAllRecipes();
     }
 
