@@ -61,7 +61,7 @@ public class RecipesFragment extends Fragment {
         category = categoryDAO.list();
 
         if(category.isEmpty()){
-            new AlertDialog.Builder(getContext()).setTitle("Opss, melhor não..").
+            new AlertDialog.Builder(getContext()).setTitle("O   pss, melhor não..").
                     setMessage("Crie uma Categoria Primeiro!").show();
 
             return;
