@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 
     android:layout_height="wrap_content"
@@ -15,28 +16,40 @@
             android:id="@+id/btn_save_recipes"
             android:layout_width="40dp"
             android:layout_height="35dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/ic_confirm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout"
             app:layout_constraintTop_toBottomOf="@+id/prepareMode"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
-        <Spinner
-            android:id="@+id/spinner_category"
-            android:layout_width="170sp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:spinnerMode="dropdown"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_save_recipes"
-            app:layout_constraintHorizontal_bias="0.331"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prepareMode"
-            app:layout_constraintVertical_bias="0.052" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                android:layout_width="170sp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_recipes"
+                app:layout_constraintHorizontal_bias="0.048"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prepareMode"
+                app:layout_constraintVertical_bias="0.0" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -58,6 +71,7 @@
             android:ems="10"
             android:hint="Nome da Receita"
             android:inputType="textPersonName"
+            android:backgroundTint="@color/colorPrimary"
             android:maxLength="17"
             app:layout_constraintBottom_toTopOf="@+id/ingredients"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,11 +84,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="150dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="Modo de Preparo"
             android:inputType="textMultiLine"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/url_web"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent" />
@@ -103,6 +118,7 @@
             android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="Numero de Porções(Un.)"
+            android:backgroundTint="@color/colorPrimary"
             android:inputType="number"
             android:maxLength="2"
             app:layout_constraintBottom_toTopOf="@+id/prepareMode"
@@ -118,6 +134,7 @@
             android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="Tempo de Preparo(Min.)"
+            android:backgroundTint="@color/colorPrimary"
             android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/yield"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,6 +150,7 @@
             android:ems="10"
             android:hint="Ingredientes"
             android:inputType="textPersonName"
+            android:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/tempPrepare"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -149,5 +167,19 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/btn_back"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/url_web"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:ems="10"
+            android:hint="Link da Receita"
+            android:inputType="text"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

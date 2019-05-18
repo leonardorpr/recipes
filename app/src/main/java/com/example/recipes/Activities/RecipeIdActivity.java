@@ -1,5 +1,8 @@
 package com.example.recipes.Activities;
 
+
+import android.content.Intent;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -76,6 +79,25 @@ public class RecipeIdActivity extends AppCompatActivity {
         Log.e(recipe.getIsFavorite().toString(), "erro");
         recipeDAO.update(this.recipe);
         setFav();
+    }
+
+    @OnClick(R.id.btn_share)
+    public void onShareClicked() {
+        String recipeText = this.recipe.getName() + "\n\nIngredientes:\n" + this.recipe.getIngredients() + "\n\nModo de preparo:\n" + this.recipe.getMethodOfPreparation() + "\n\nTempo de preparo:\n" + this.recipe.getTime() + "\n\nRendimento:\n" + this.recipe.getYield();
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, recipeText);
+
+        if (this.recipe.getImageName() != null) {
+            Uri imageUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Receitas" + File.separator + this.recipe.getImageName());
+            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            sharingIntent.setType("Receitas/*");
+        }
+        else {
+            sharingIntent.setType("text/plain");
+        }
+
+        this.startActivity(Intent.createChooser(sharingIntent, "Compartilhar via"));
     }
 
     public void setFav(){

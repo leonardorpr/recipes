@@ -54,6 +54,8 @@ public class RecipesActivity extends AppCompatActivity {
     EditText prepareMode;
     @BindView(R.id.spinner_category)
     Spinner spinnerCategory;
+    @BindView(R.id.url_web)
+    EditText urlWeb;
     private Recipe recipe;
     private RecipeDAO recipeDAO;
     private CategoryDAO categoryDAO;
@@ -63,6 +65,8 @@ public class RecipesActivity extends AppCompatActivity {
     private Category category;
     private long id = -1;
     private final int SELECT_PICTURE = 1;
+    private boolean isWeb;
+    private String url;
 
 
     @Override
@@ -77,6 +81,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null) {
             this.id = getIntent().getExtras().getLong("id");
+            this.isWeb = getIntent().getExtras().getBoolean("isWeb");
         }
 
         spinnerCategory = findViewById(R.id.spinner_category);
@@ -94,6 +99,14 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
+        if (this.isWeb) {
+            urlWeb.setVisibility(View.VISIBLE);
+            tempPrepare.setVisibility(View.GONE);
+            prepareMode.setVisibility(View.GONE);
+            yield.setVisibility(View.GONE);
+            ingredients.setVisibility(View.GONE);
+        }
+
         this.getPermission();
 
         if (this.id != -1) {
@@ -110,22 +123,40 @@ public class RecipesActivity extends AppCompatActivity {
             this.tempPrepare.setText(String.valueOf(recipe.getTime()));
             this.prepareMode.setText(recipe.getMethodOfPreparation());
             this.yield.setText(String.valueOf(recipe.getYield()));
+            this.urlWeb.setText(recipe.getUrl());
         }
     }
 
     @OnClick(R.id.btn_save_recipes)
     public void onBtnSaveClicked() {
         String name = recipeName.getText().toString();
-        String ingredientsRecipe = ingredients.getText().toString();
-        String tempPrepareRecipes = tempPrepare.getText().toString();
-        String prepareModeRecipes = prepareMode.getText().toString();
-        String yieldRecipes = yield.getText().toString();
         Category category = selectedCategory;
 
+        if(!isWeb) {
+            String ingredientsRecipe = ingredients.getText().toString();
+            String tempPrepareRecipes = tempPrepare.getText().toString();
+            String prepareModeRecipes = prepareMode.getText().toString();
+            String yieldRecipes = yield.getText().toString();
 
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(ingredientsRecipe) || TextUtils.isEmpty(tempPrepareRecipes) || TextUtils.isEmpty(prepareModeRecipes) || TextUtils.isEmpty(yieldRecipes)) {
-            Toast.makeText(this, "Preencha TODOS os campos!", Toast.LENGTH_SHORT).show();
-            return;
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(ingredientsRecipe) || TextUtils.isEmpty(tempPrepareRecipes) || TextUtils.isEmpty(prepareModeRecipes) || TextUtils.isEmpty(yieldRecipes)) {
+                Toast.makeText(this, "Preencha TODOS os campos!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int yeildInt = Integer.parseInt(yieldRecipes);
+            int tempInt = Integer.parseInt(tempPrepareRecipes);
+            recipe.setIngredients(ingredientsRecipe);
+            recipe.setTime(tempInt);
+            recipe.setMethodOfPreparation(prepareModeRecipes);
+            recipe.setYield(yeildInt);
+        }else{
+              url = urlWeb.getText().toString();
+              recipe.setUrl(url);
+
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(url)) {
+                Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
 
@@ -160,13 +191,7 @@ public class RecipesActivity extends AppCompatActivity {
         }
 
         Log.e(recipe.getImageName(), "Teste");
-        int yeildInt = Integer.parseInt(yieldRecipes);
-        int tempInt = Integer.parseInt(tempPrepareRecipes);
         recipe.setName(name);
-        recipe.setIngredients(ingredientsRecipe);
-        recipe.setTime(tempInt);
-        recipe.setMethodOfPreparation(prepareModeRecipes);
-        recipe.setYield(yeildInt);
         recipe.setCategoryId(category.getId());
         recipe.setCategory(category);
         recipe.setIsFavorite(false);

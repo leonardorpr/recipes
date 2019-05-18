@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.recipes.Activities.RecipesActivity;
 import com.example.recipes.Adapters.RecipesAdapterItens;
@@ -66,7 +67,45 @@ public class RecipesFragment extends Fragment {
 
             return;
         }else {
-            startActivity(new Intent(getActivity(), RecipesActivity.class));
+            AlertDialog.Builder decision = new AlertDialog.Builder(getActivity());
+            View decisionView = LayoutInflater.from(getActivity()).inflate(R.layout.decision_new_recipe, null);
+
+            ImageView btnNewRecipe = decisionView.findViewById(R.id.btn_new_recipe);
+            ImageView btnNewWeb = decisionView.findViewById(R.id.btn_new_recipe_web);
+            ImageView btnCancel = decisionView.findViewById(R.id.btn_cancel);
+
+            decision.setView(decisionView);
+            final AlertDialog dialog = decision.create();
+            dialog.show();
+
+            btnNewRecipe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.hide();
+                    Intent intent = new Intent(getActivity(), RecipesActivity.class);
+                    intent.putExtra("isWeb", false);
+                    intent.putExtra("id", Long.valueOf(-1));
+                    startActivity(intent);
+                }
+            });
+
+            btnNewWeb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.hide();
+                    Intent intent = new Intent(getActivity(), RecipesActivity.class);
+                    intent.putExtra("isWeb", true);
+                    intent.putExtra("id", Long.valueOf(-1));
+                    startActivity(intent);
+                }
+            });
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.hide();
+                }
+            });
         }
     }
 
