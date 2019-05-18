@@ -33,6 +33,22 @@
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Pesquise suas receitas..."
+        android:inputType="textPersonName"
+        android:maxLength="17"
+        app:layout_constraintBottom_toTopOf="@+id/recycleview_recipes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recycleview_recipes" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview_recipes"
         android:layout_width="322dp"
