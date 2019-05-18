@@ -128,10 +128,36 @@ public class RecipesActivity extends AppCompatActivity {
             return;
         }
 
-        recipe.setImageName(UUID.randomUUID().toString() + "." + recipe.getImageExtension());
-        File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + File.separator + "Receitas" + File.separator);
-        root.mkdirs();
-        Log.e(root.toString(),"teste");
+
+        if (recipe.getImageBitmap() != null) {
+            recipe.setImageName(UUID.randomUUID().toString() + "." + recipe.getImageExtension());
+            OutputStream outStream = null;
+            Uri outUri;
+
+            try {
+                File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Receitas" + File.separator);
+                root.mkdirs();
+                File directory = new File(root, recipe.getImageName());
+                outStream = new FileOutputStream(directory);
+                outUri = Uri.fromFile(directory);
+
+                Intent mediaScan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                File file = new File(outUri.toString());
+                Uri content = Uri.fromFile(file);
+                mediaScan.setData(content);
+                this.sendBroadcast(mediaScan);
+            } catch (Exception e) {
+                Toast.makeText(this, "Erro ao salvar imagem!", Toast.LENGTH_SHORT).show();
+            }
+
+            try {
+                this.recipe.getImageBitmap().compress(Bitmap.CompressFormat.PNG, 100, outStream);
+                outStream.flush();
+                outStream.close();
+            } catch (Exception e) {
+                Toast.makeText(this, "Erro ao salvar imagem!", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         Log.e(recipe.getImageName(), "Teste");
         int yeildInt = Integer.parseInt(yieldRecipes);
@@ -144,6 +170,7 @@ public class RecipesActivity extends AppCompatActivity {
         recipe.setCategoryId(category.getId());
         recipe.setCategory(category);
         recipe.setIsFavorite(false);
+
 
         if (this.id == -1) {
             Toast.makeText(this, "Receita Adicionada!", Toast.LENGTH_SHORT).show();

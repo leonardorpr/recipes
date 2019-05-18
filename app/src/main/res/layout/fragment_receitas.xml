@@ -25,12 +25,10 @@
         android:id="@+id/btn_recipes_add"
         android:layout_width="35dp"
         android:layout_height="33dp"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="45dp"
         android:background="@drawable/ic_plus"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView

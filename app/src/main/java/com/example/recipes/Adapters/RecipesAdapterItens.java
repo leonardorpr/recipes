@@ -44,6 +44,7 @@ public class RecipesAdapterItens extends RecyclerView.Adapter<RecipesViewHolder>
         recipesViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 recipeDAO.remove(recipes.get(i).getId());
                 attItens(recipeDAO.list());
             }

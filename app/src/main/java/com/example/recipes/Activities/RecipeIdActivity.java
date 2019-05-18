@@ -1,6 +1,8 @@
 package com.example.recipes.Activities;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import com.example.recipes.DAO.RecipeDAO;
 import com.example.recipes.Models.Recipe;
 import com.example.recipes.R;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +52,11 @@ public class RecipeIdActivity extends AppCompatActivity {
 
         this.nameRecipe.setText(this.recipe.getName());
         this.ingredientsRecipe.setText(this.recipe.getIngredients());
-        this.yieldRecipes.setText(this.recipe.getYield() + " Por.");
         this.prepareModeRecipes.setText(this.recipe.getMethodOfPreparation());
+        this.yieldRecipes.setText(this.recipe.getYield() + " Por.");
         this.tempPrepareRecipes.setText(this.recipe.getTime() + " Min.");
+        File imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Receitas" + File.separator + recipe.getImageName());
+        this.imageRecipe.setImageURI(Uri.fromFile(imgFile));
         setFav();
     }
 
