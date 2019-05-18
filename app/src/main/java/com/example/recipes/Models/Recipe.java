@@ -15,6 +15,7 @@ public class Recipe {
     private Bitmap imageBitmap;
     private String imageName;
     private String imageExtension;
+    private String url;
 
     public Long getId () {
         return id;
@@ -22,6 +23,14 @@ public class Recipe {
 
     public void setId (Long id) {
         this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getName () {
