@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -25,7 +28,12 @@ import com.example.recipes.Models.Category;
 import com.example.recipes.Models.Recipe;
 import com.example.recipes.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +63,6 @@ public class RecipesActivity extends AppCompatActivity {
     private Category category;
     private long id = -1;
     private final int SELECT_PICTURE = 1;
-    private String selectdImagePath;
 
 
     @Override
@@ -121,6 +128,12 @@ public class RecipesActivity extends AppCompatActivity {
             return;
         }
 
+        recipe.setImageName(UUID.randomUUID().toString() + "." + recipe.getImageExtension());
+        File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + File.separator + "Receitas" + File.separator);
+        root.mkdirs();
+        Log.e(root.toString(),"teste");
+
+        Log.e(recipe.getImageName(), "Teste");
         int yeildInt = Integer.parseInt(yieldRecipes);
         int tempInt = Integer.parseInt(tempPrepareRecipes);
         recipe.setName(name);
@@ -130,6 +143,7 @@ public class RecipesActivity extends AppCompatActivity {
         recipe.setYield(yeildInt);
         recipe.setCategoryId(category.getId());
         recipe.setCategory(category);
+        recipe.setIsFavorite(false);
 
         if (this.id == -1) {
             Toast.makeText(this, "Receita Adicionada!", Toast.LENGTH_SHORT).show();
@@ -155,38 +169,34 @@ public class RecipesActivity extends AppCompatActivity {
 
     @OnClick(R.id.open_galery)
     public void onGaleryClicked() {
-        Intent intent = new Intent(Intent.ACTION_PICK,  MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, SELECT_PICTURE);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+                case SELECT_PICTURE: {
+                    if (data != null) {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        Log.e("teste", "test");
+                        Cursor cursor = getContentResolver().query(
+                                selectedImage, filePathColumn, null, null, null);
+                        cursor.moveToFirst();
 
-        if (resultCode == SELECT_PICTURE){
-            switch (requestCode){
-                case SELECT_PICTURE:{
-                    if (data != null){
-                        Uri selectImage = data.getData();
-                        selectdImagePath = getPath(selectImage);
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String filePath = cursor.getString(columnIndex);
+                        this.recipe.setImageExtension(filePath.substring(filePath.lastIndexOf(".")));
+
+                        cursor.close();
+
+                        Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
+                        this.recipe.setImageBitmap(yourSelectedImage);
+                        Log.e(yourSelectedImage.toString(), "teste");
                     }
                 }
-            }
         }
-    }
-
-    public String getPath(Uri uri){
-        if (uri == null){
-            Toast.makeText(getBaseContext(),"Nenhuma Imagem", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        String[] file = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, file, null, null, null);
-        if (cursor != null){
-            int column = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-
-            return cursor.getString(column);
-        }
-        return uri.getPath();
     }
 }
+

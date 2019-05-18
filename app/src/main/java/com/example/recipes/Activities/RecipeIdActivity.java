@@ -2,6 +2,7 @@ package com.example.recipes.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class RecipeIdActivity extends AppCompatActivity {
     TextView tempPrepareRecipes;
     @BindView(R.id.btn_favorite)
     ImageButton btnFavorite;
+    @BindView(R.id.img_recipe)
     ImageView imageRecipe;
     private long id;
     private Recipe recipe;
@@ -43,11 +45,13 @@ public class RecipeIdActivity extends AppCompatActivity {
             this.recipe = recipeDAO.get(this.id);
         }
 
+
         this.nameRecipe.setText(this.recipe.getName());
         this.ingredientsRecipe.setText(this.recipe.getIngredients());
         this.yieldRecipes.setText(this.recipe.getYield() + " Por.");
         this.prepareModeRecipes.setText(this.recipe.getMethodOfPreparation());
         this.tempPrepareRecipes.setText(this.recipe.getTime() + " Min.");
+        setFav();
     }
 
 
@@ -58,7 +62,22 @@ public class RecipeIdActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_favorite)
     public void onFavoriteClicked() {
-        this.btnFavorite.setBackgroundResource(R.drawable.ic_favorite_true);
+        if (this.recipe.getIsFavorite()) {
+            this.recipe.setIsFavorite(false);
+        } else {
+            this.recipe.setIsFavorite(true);
+        }
+        Log.e(recipe.getIsFavorite().toString(), "erro");
+        recipeDAO.update(this.recipe);
+        setFav();
+    }
+
+    public void setFav(){
+        if (this.recipe.getIsFavorite()){
+            this.btnFavorite.setBackgroundResource(R.drawable.ic_favorite_true);
+        }else{
+            this.btnFavorite.setBackgroundResource(R.drawable.ic_favorite_default);
+        }
     }
 }
 

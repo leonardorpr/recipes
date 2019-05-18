@@ -13,8 +13,8 @@
         android:id="@+id/btn_back"
         android:layout_width="40dp"
         android:layout_height="35dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/ic_go_back_left_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

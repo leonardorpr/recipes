@@ -41,7 +41,6 @@ public class RecipesAdapterItens extends RecyclerView.Adapter<RecipesViewHolder>
     public void onBindViewHolder(@NonNull RecipesViewHolder recipesViewHolder, final int i) {
         recipesViewHolder.name.setText(this.recipes.get(i).getName());
 
-        final long id = (long) i;
         recipesViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

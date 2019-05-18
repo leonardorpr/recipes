@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.recipes.Adapters.RecipesAdapterItens;
+import com.example.recipes.DAO.RecipeDAO;
 import com.example.recipes.Models.Recipe;
 import com.example.recipes.R;
 
@@ -21,6 +22,7 @@ import butterknife.Unbinder;
 
 public class FavoriteFragment extends Fragment {
     RecipesAdapterItens recipesAdapterItens;
+    RecipeDAO recipeDAO;
     Unbinder unbinder;
 
     @Override
@@ -49,11 +51,13 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void getAllFavorite(){
-
+        recipeDAO = new RecipeDAO(getContext());
+        recipesAdapterItens.attItens(recipeDAO.listFavorites());
     }
 
     public void onResume(){
         super.onResume();
 
+        getAllFavorite();
     }
 }
