@@ -3,6 +3,7 @@ package com.example.recipes.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +29,6 @@ public class RecipesAdapterItens extends RecyclerView.Adapter<RecipesViewHolder>
         this.recipeDAO = new RecipeDAO(context);
         this.recipes = recipes;
     }
-
 
     @NonNull
     @Override
@@ -62,9 +62,15 @@ public class RecipesAdapterItens extends RecyclerView.Adapter<RecipesViewHolder>
         recipesViewHolder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, RecipeIdActivity.class);
-                intent.putExtra("id", recipes.get(i).getId());
-                context.startActivity(intent);
+                if (isWeb(recipes.get(i))) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(recipes.get(i).getUrl()));
+                    context.startActivity(browserIntent);
+                } else {
+                    Intent intent = new Intent(context, RecipeIdActivity.class);
+                    intent.putExtra("id", recipes.get(i).getId());
+                    context.startActivity(intent);
+                }
+
             }
         });
     }
@@ -72,6 +78,14 @@ public class RecipesAdapterItens extends RecyclerView.Adapter<RecipesViewHolder>
     public void attItens(ArrayList<Recipe> recipes){
         this.recipes = recipes;
         notifyDataSetChanged();
+    }
+
+    public Boolean isWeb(Recipe recipe) {
+        if (recipe.getUrl() != null && !recipe.getUrl().equals("")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

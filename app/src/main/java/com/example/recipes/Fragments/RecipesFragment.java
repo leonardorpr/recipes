@@ -8,30 +8,38 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.recipes.Activities.RecipesActivity;
 import com.example.recipes.Adapters.RecipesAdapterItens;
 import com.example.recipes.DAO.CategoryDAO;
 import com.example.recipes.DAO.RecipeDAO;
+import com.example.recipes.Filters.RecipeFilter;
 import com.example.recipes.Models.Category;
 import com.example.recipes.Models.Recipe;
 import com.example.recipes.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class RecipesFragment extends Fragment {
+    @BindView(R.id.search)
+    EditText search;
     private CategoryDAO categoryDAO;
     private ArrayList<Category> category;
     private Unbinder unbinder;
     private RecipesAdapterItens recipesAdapterItens;
+    private RecipeFilter recipeFilter;
 
 
     @Override
@@ -53,6 +61,7 @@ public class RecipesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.recipesAdapterItens = new RecipesAdapterItens(getContext(), new ArrayList<Recipe>());
+        setSearchListener();
         RecicleViewRecipes();
     }
 
@@ -114,6 +123,7 @@ public class RecipesFragment extends Fragment {
         LinearLayoutManager linearLayoutManagerRecipes = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recycleViewrecipes.setLayoutManager(linearLayoutManagerRecipes);
         recycleViewrecipes.setAdapter(recipesAdapterItens);
+        this.recipeFilter = new RecipeFilter(recipesAdapterItens, new ArrayList<Recipe>());
     }
 
     public void onResume(){
@@ -125,5 +135,24 @@ public class RecipesFragment extends Fragment {
     public void getAllRecipes(){
         RecipeDAO recipeDAO = new RecipeDAO(getContext());
         recipesAdapterItens.attItens(recipeDAO.list());
+    }
+
+    private void setSearchListener() {
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                recipeFilter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }
