@@ -26,20 +26,18 @@ public class RecipeFilter extends Filter {
         FilterResults filterResults = new FilterResults();
 
         if (charSequence == null || charSequence.length() == 0) {
-            Log.e("idAntes", "aqui");
             filterResults.values = this.recipes;
             filterResults.count = this.recipes.size();
         } else {
             ArrayList<Recipe> filters = new ArrayList<>();
-            Log.e("idAntes", "aqui else");
+            Log.e("teste", toString().valueOf(recipes.size()));
 
-            for(Recipe recipe: this.recipes) {
-                Log.e("idAntes", "aqui adicionando");
+            for(Recipe recipe : recipes) {
+                Log.e("teste", "aqui entrou");
                 if(StringUtils.stripAccents(recipe.getName()).toUpperCase().contains(StringUtils.stripAccents(charSequence.toString()).toUpperCase())) {
                     filters.add(recipe);
                 }
             }
-
             filterResults.values = filters;
             filterResults.count = filters.size();
         }
@@ -49,11 +47,15 @@ public class RecipeFilter extends Filter {
 
     @Override
     protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-        this.adapter.attItens((ArrayList<Recipe>) filterResults.values);
+        this.adapter.attItens((ArrayList<Recipe>)filterResults.values);
     }
 
     @Override
     public CharSequence convertResultToString(Object resultValue) {
         return super.convertResultToString(resultValue);
+    }
+
+    public void attItens(ArrayList<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }

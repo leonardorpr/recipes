@@ -134,6 +134,7 @@ public class RecipesFragment extends Fragment {
 
     public void getAllRecipes(){
         RecipeDAO recipeDAO = new RecipeDAO(getContext());
+        recipeFilter.attItens(recipeDAO.list());
         recipesAdapterItens.attItens(recipeDAO.list());
     }
 
