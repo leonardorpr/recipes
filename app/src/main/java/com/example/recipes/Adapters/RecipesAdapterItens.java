@@ -30,7 +30,6 @@ public class RecipesAdapterItens extends RecyclerView.Adapter<RecipesViewHolder>
         this.recipes = recipes;
     }
 
-
     @NonNull
     @Override
     public RecipesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
