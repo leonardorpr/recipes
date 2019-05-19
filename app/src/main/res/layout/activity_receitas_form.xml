@@ -172,14 +172,14 @@
             android:id="@+id/url_web"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="Link da Receita"
-            android:inputType="text"
             android:visibility="gone"
+            android:inputType="text"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
